@@ -3,6 +3,9 @@
 This API provides book recommendations using a LightGCN model trained on user-book interaction data. The model supports recommendations based on user demographics and previous book interactions.
 The model has been trained based on Arashnic dataset from Kaggle [link](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset)
 
+
+The data and model have been zipped and save to my drive
+
 ## 🚀 Features
 
 - **Recommend Books Based on Demographics** (Age & Country)
