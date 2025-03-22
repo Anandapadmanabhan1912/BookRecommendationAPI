@@ -4,7 +4,7 @@ This API provides book recommendations using a LightGCN model trained on user-bo
 The model has been trained based on Arashnic dataset from Kaggle [link](https://www.kaggle.com/datasets/arashnic/book-recommendation-dataset)
 
 
-The data and model have been zipped and save to my drive
+The data and model have been zipped and save to my drive [link](https://drive.google.com/file/d/1umc7vSvN9tkrQsxNRMUCw9ZSDzwuJOMW/view?usp=sharing)
 
 ## 🚀 Features
 
