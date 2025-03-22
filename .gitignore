@@ -1,0 +1,10 @@
+#no need of these files in git
+model/
+**/model/
+
+# Ignore all data directories
+data/
+**/data/
+
+*.zip
+*.tar.gz
