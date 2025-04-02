@@ -102,7 +102,11 @@ def recommend():
     top_k = data.get("top_k", 5)
 
     if not isbn_list:
-        return jsonify({"error": "No books provided"}), 400
+        popular_books = recommend_popular_books(ratings_df, books_df, top_k)
+        return jsonify({
+            "message": "Showing popular books since none were specified.", 
+            "recommendations": popular_books
+        })
 
     recommendations = recommend_new_user(isbn_list, top_k)
     return jsonify({"recommendations": recommendations})

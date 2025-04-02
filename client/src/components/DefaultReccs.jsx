@@ -8,6 +8,8 @@ const DefaultRecommendations = () => {
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
 
+
+
   const addBook = () => {
     if (bookInput.trim()) {
       const newBook = {
@@ -51,9 +53,12 @@ const DefaultRecommendations = () => {
           <input
             type="text"
             value={bookInput}
-            onChange={(e) => setBookInput(e.target.value)}
+            onChange={(e) => {
+              const numericValue = e.target.value.replace(/[^0-9]/g, "");
+              setBookInput(numericValue);
+            }}
             className="flex-grow p-2 border rounded-l"
-            placeholder="Enter a book title or ISBN"
+            placeholder="Enter a book ISBN"
             onKeyPress={(e) => e.key === "Enter" && addBook()}
           />
           <button

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getDemographicRecommendations } from "../services/api";
 import BookList from "./BookList";
+import countries from "../data/countries.json"
 
 const DemographicRecommendations = () => {
   const [ageRange, setAgeRange] = useState([18, 35]);
@@ -72,15 +73,22 @@ const DemographicRecommendations = () => {
           </div>
         </div>
 
-        <div className="mb-4">
+        <div className="relative mb-4">
           <label className="block font-medium mb-2">Country</label>
-          <input
-            type="text"
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Enter country (e.g., USA, UK)"
-          />
+          <div className="relative">
+            <select
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              className="w-full p-2 border rounded"
+            >
+              <option value="">Select a country</option>
+              {countries.map((c) => (
+                <option key={c} value={c}>
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
 

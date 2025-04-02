@@ -18,13 +18,6 @@ const Navbar = ({ activeTab, onTabChange }) => {
       >
         For You
       </TabButton>
-      <TabButton
-        id="newUser"
-        active={activeTab === "newUser"}
-        onClick={onTabChange}
-      >
-        Custom
-      </TabButton>
     </div>
   );
 };
