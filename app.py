@@ -1,13 +1,15 @@
 import torch
 import pandas as pd
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from model import LightGCN  # Import your trained model class
 
 # Initialize Flask App
 app = Flask(__name__)
+CORS(app)
 
 # Load Data
-books_df = pd.read_csv("./data/books.csv", dtype={'ISBN': 'string', 'Book-Title': 'string', 'Book-Author': 'string', 'Year-Of-Publication': 'string'})
+books_df = pd.read_csv("./data/books.csv", dtype={'ISBN': 'string', 'Book-Title': 'string', 'Book-Author': 'string', 'Year-Of-Publication': 'string', 'Image-URL-M':'string'})
 ratings_df = pd.read_csv("./data/ratings.csv", dtype={'User-ID': 'int32', 'ISBN': 'string', 'Book-Rating': 'int8'})
 users_df = pd.read_csv("./data/users.csv", dtype={'User-ID': 'int32', 'Location': 'string', 'Age': 'float64'})
 
@@ -32,7 +34,7 @@ def recommend_popular_books(ratings_df, books_df, top_k=5):
         return books_df.sample(n=top_k, random_state=42).to_dict(orient="records")
 
     popular_books = ratings_df['ISBN'].value_counts().index[:top_k]
-    recommended_books = books_df[books_df['ISBN'].isin(popular_books)][['Book-Title', 'Book-Author', 'Year-Of-Publication']]
+    recommended_books = books_df[books_df['ISBN'].isin(popular_books)][['Book-Title', 'Book-Author', 'Year-Of-Publication', 'Image-URL-M']]
     
     return recommended_books.to_dict(orient="records")
 
@@ -69,7 +71,7 @@ def recommend_by_demographics(users_df, user_id_map, book_id_map, books_df, mode
 
 
     # Retrieve book details
-    recommended_books = books_df[books_df["ISBN"].isin(recommended_isbns)][["Book-Title", "Book-Author", "Year-Of-Publication"]]
+    recommended_books = books_df[books_df["ISBN"].isin(recommended_isbns)][["Book-Title", "Book-Author", "Year-Of-Publication", "Image-URL-M"]]
 
     return recommended_books.to_dict(orient="records")
 
@@ -87,7 +89,7 @@ def recommend_new_user(isbn_list, top_k=5):
         scores = model.recommend_by_books(interacted_tensor, top_k)  # Implement this in LightGCN model
 
     recommended_isbns = [id_to_book[idx] for idx in scores if idx in id_to_book]
-    recommended_books = books_df[books_df["ISBN"].isin(recommended_isbns)][["Book-Title", "Book-Author", "Year-Of-Publication"]]
+    recommended_books = books_df[books_df["ISBN"].isin(recommended_isbns)][["Book-Title", "Book-Author", "Year-Of-Publication", "Image-URL-M"]]
 
     return recommended_books.to_dict(orient="records")
 
